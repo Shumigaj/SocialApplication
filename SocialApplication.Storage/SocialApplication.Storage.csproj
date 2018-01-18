@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>SocialApplication.Storage</AssemblyName>
+    <RootNamespace>SocialApplication.Storage</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SocialApplication.Core\SocialApplication.Core.csproj" />
+  </ItemGroup>
+
+</Project>
