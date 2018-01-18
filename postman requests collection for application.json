@@ -1,0 +1,157 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Social Web API app",
+		"_postman_id": "835c24d6-ae9e-cfca-aa9a-dcc69b50710c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get news",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get existing news",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/2",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get non-existent news",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/10",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get news invalid request",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/-28",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create new news",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"British hiring slows down\",\n\t\"text\": \"Hiring in the UK was 10 percent lower in November 2017 than in October 2017, according to LinkedIn’s December UK Workforce Report. The...\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update news",
+			"request": {
+				"url": {
+					"raw": "http://localhost:61206/api/v1/news?id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61206",
+					"path": [
+						"api",
+						"v1",
+						"news"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 2,\n\t\"title\": \"Workforce location linked to increased productivity...\",\n\t\"text\": \"New research from a collaboration between LinkedIn and EY has found that companies can make major performance and productivity improvem...\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete news",
+			"request": {
+				"url": {
+					"raw": "http://localhost:61206/api/v1/news?id=-3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61206",
+					"path": [
+						"api",
+						"v1",
+						"news"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "-3",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

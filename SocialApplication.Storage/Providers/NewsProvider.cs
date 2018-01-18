@@ -13,7 +13,7 @@ namespace SocialApplication.Storage.Providers
 
         public NewsProvider()
         {
-            _newsCollection = new NewsCollectionGenerator().CreateApplicationContent();
+            _newsCollection = NewsCollectionGenerator.Data;
             NextNewsId = _newsCollection.Max(w => w.Id) + 1;
         }
 

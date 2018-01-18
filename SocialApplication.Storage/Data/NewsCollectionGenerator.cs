@@ -4,11 +4,13 @@ using SocialApplication.Core.Models;
 
 namespace SocialApplication.Storage.Data
 {
-    internal class NewsCollectionGenerator
+    internal static class NewsCollectionGenerator
     {
-        public IList<News> CreateApplicationContent()
+        public static IList<News> Data { get; }
+
+        static NewsCollectionGenerator()
         {
-            return new List<News>
+            Data = new List<News>
             {
                 new News
                 {

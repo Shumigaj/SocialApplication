@@ -25,8 +25,11 @@ namespace SocialApplication
             {
                 options.Filters.Add(new ValidateModelFilterAttribute());
             });
+
             services.AddSingleton<INewsProvider, NewsProvider>();
             services.AddTransient<INewsRepository, NewsRepository>();
+            services.AddTransient<ICommentsProvider, CommentsProvider>();
+            services.AddTransient<ICommentsRepository, CommentsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
