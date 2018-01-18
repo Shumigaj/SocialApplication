@@ -5,9 +5,9 @@ namespace SocialApplication.Core.Contracts
 {
     public interface INewsProvider
     {
-        int Create(News post);
-        void Delete(int postId);
-        void Update(News post);
+        int Create(News news);
+        void Delete(int newsId);
+        void Update(News updatedNews);
         IEnumerable<News> GetAll();
     }
 }

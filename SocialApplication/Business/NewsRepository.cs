@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using SocialApplication.Core.Contracts;
 using SocialApplication.Core.Models;
 using SocialApplication.Requests;
@@ -14,24 +17,56 @@ namespace SocialApplication.Business
             _newsProvider = newsProvider;
         }
 
-        public void AddPost(News post)
+        public News Add(News news)
         {
-            throw new System.NotImplementedException();
+            news.CreatedAtUtc = DateTime.UtcNow;
+            var newNewsId = _newsProvider.Create(news);
+            news.Id = newNewsId;
+            return news;
         }
 
-        public IEnumerable<News> Query(NewsSpecifications specifications)
+        public void Remove(News news)
         {
-            throw new System.NotImplementedException();
+            _newsProvider.Delete(news.Id);
         }
 
-        public void RemovePost(News post)
+        public News Update(News news)
         {
-            throw new System.NotImplementedException();
+            var item = _newsProvider.GetAll().FirstOrDefault(w => w.Id == news.Id);
+            if (item == null)
+            {
+                return null;
+            }
+
+            item.Title = news.Title;
+            item.Text = news.Text;
+            item.AllowComments = news.AllowComments;
+            item.ModifiedAtUtc = DateTime.UtcNow;
+
+            _newsProvider.Update(item);
+
+            return item;
         }
 
-        public void UpdatePost(News post)
+        public async Task<IEnumerable<News>> QueryAsync(NewsSpecifications specifications = null)
         {
-            throw new System.NotImplementedException();
+            return await Task.Run(() => Query(specifications));
+        }
+
+        public IEnumerable<News> Query(NewsSpecifications specifications = null)
+        {
+            var result = _newsProvider.GetAll();
+            if (specifications == null)
+            {
+                return result;
+            }
+
+            if (specifications.NewsId.HasValue)
+            {
+                result = result.Where(w => w.Id == specifications.NewsId);
+            }
+
+            return result;
         }
     }
 }

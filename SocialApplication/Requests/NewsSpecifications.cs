@@ -2,6 +2,6 @@
 {
     public class NewsSpecifications
     {
-        public int NewsId { get; set; }
+        public int? NewsId { get; set; }
     }
 }

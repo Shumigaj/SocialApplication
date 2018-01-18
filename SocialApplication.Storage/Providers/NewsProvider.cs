@@ -8,39 +8,44 @@ namespace SocialApplication.Storage.Providers
 {
     public class NewsProvider : INewsProvider
     {
-        private readonly IList<News> _postsCollection;
+        private readonly IList<News> _newsCollection;
+        private int NextNewsId { get; set; }
 
         public NewsProvider()
         {
-            _postsCollection = new NewsCollectionGenerator().CreateApplicationContent();
+            _newsCollection = new NewsCollectionGenerator().CreateApplicationContent();
+            NextNewsId = _newsCollection.Max(w => w.Id) + 1;
         }
 
-        public int Create(News post)
+        public int Create(News news)
         {
-            post.Id = _postsCollection.Max(w => w.Id) + 1;
-            _postsCollection.Add(post);
-            return post.Id;
+            news.Id = NextNewsId;
+            _newsCollection.Add(news);
+            NextNewsId++;
+            return news.Id;
         }
 
-        public void Delete(int postId)
+        public void Delete(int newsId)
         {
-            var postToRemove = _postsCollection.SingleOrDefault(r => r.Id == postId);
+            var postToRemove = _newsCollection.SingleOrDefault(r => r.Id == newsId);
             if (postToRemove == null)
             {
                 return;
             }
 
-            _postsCollection.Remove(postToRemove);
+            _newsCollection.Remove(postToRemove);
         }
 
-        public void Update(News post)
+        public void Update(News updatedNews)
         {
-            throw new System.NotImplementedException();
+            var oldItem = GetAll().First(w => w.Id == updatedNews.Id);
+            var itemIndex = _newsCollection.IndexOf(oldItem);
+            _newsCollection[itemIndex] = updatedNews;
         }
 
         public IEnumerable<News> GetAll()
         {
-            return _postsCollection;
+            return _newsCollection;
         }
     }
 }

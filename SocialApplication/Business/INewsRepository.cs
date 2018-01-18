@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SocialApplication.Core.Models;
 using SocialApplication.Requests;
 
@@ -6,9 +7,10 @@ namespace SocialApplication.Business
 {
     public interface INewsRepository
     {
-        void AddPost(News post);
-        void RemovePost(News post);
-        void UpdatePost(News post);
-        IEnumerable<News> Query(NewsSpecifications specifications);
+        News Add(News news);
+        void Remove(News news);
+        News Update(News news);
+        IEnumerable<News> Query(NewsSpecifications specifications = null);
+        Task<IEnumerable<News>> QueryAsync(NewsSpecifications specifications = null);
     }
 }
