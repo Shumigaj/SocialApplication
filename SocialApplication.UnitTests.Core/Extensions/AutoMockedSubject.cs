@@ -7,7 +7,7 @@ namespace SocialApplication.UnitTests.Core.Extensions
     public abstract class AutoMockedSubject<TSubjectToTest>
         where TSubjectToTest : class 
     {
-        private AutoMocker _mocker;
+        private AutoMocker _autoMocker;
 
         private TSubjectToTest _subjectToTest;
 
@@ -20,7 +20,7 @@ namespace SocialApplication.UnitTests.Core.Extensions
                     return _subjectToTest;
                 }
 
-                _subjectToTest = _mocker.CreateInstance<TSubjectToTest>();
+                _subjectToTest = _autoMocker.CreateInstance<TSubjectToTest>();
                 return _subjectToTest;
             }
         }
@@ -28,7 +28,7 @@ namespace SocialApplication.UnitTests.Core.Extensions
         [SetUp]
         public void Setup()
         {
-            _mocker = new AutoMocker();
+            _autoMocker = new AutoMocker();
         }
 
         [TearDown]
@@ -40,7 +40,7 @@ namespace SocialApplication.UnitTests.Core.Extensions
         protected Mock<TDependencyType> Use<TDependencyType>() 
             where TDependencyType : class
         {
-            return _mocker.GetMock<TDependencyType>();
+            return _autoMocker.GetMock<TDependencyType>();
         }
     }
 }

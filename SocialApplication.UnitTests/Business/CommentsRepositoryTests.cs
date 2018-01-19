@@ -55,8 +55,8 @@ namespace SocialApplication.UnitTests.Business
                                  ?? new List<Comment>();
 
             var expectedResult = commentId.HasValue
-                ? commentsCollection.Count(w => w.Id == commentId)
-                : commentsCollection.Count;
+                ? commentsCollection.Where(w => w.Id == commentId).ToList()
+                : commentsCollection;
 
             Use<ICommentsProvider>()
                 .Setup(c => c.GetAll(newsId))
@@ -70,7 +70,7 @@ namespace SocialApplication.UnitTests.Business
             });
 
             // Assert
-            Assert.AreEqual(expectedResult, actualResult.Count());
+            CollectionAssert.AreEqual(expectedResult, actualResult);
         }
     }
 }
