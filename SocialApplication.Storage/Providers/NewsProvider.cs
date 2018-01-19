@@ -13,8 +13,10 @@ namespace SocialApplication.Storage.Providers
 
         public NewsProvider()
         {
-            _newsCollection = NewsCollectionGenerator.Data;
-            NextNewsId = _newsCollection.Max(w => w.Id) + 1;
+            _newsCollection = NewsCollectionStorage.Data;
+            NextNewsId = _newsCollection.Count > 0 
+                ? _newsCollection.Max(w => w.Id) + 1
+                : 0;
         }
 
         public int Create(News news)
@@ -38,7 +40,7 @@ namespace SocialApplication.Storage.Providers
 
         public void Update(News updatedNews)
         {
-            var oldItem = GetAll().First(w => w.Id == updatedNews.Id);
+            var oldItem = GetAll().Single(w => w.Id == updatedNews.Id);
             var itemIndex = _newsCollection.IndexOf(oldItem);
             _newsCollection[itemIndex] = updatedNews;
         }

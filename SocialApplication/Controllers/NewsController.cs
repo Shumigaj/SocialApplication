@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SocialApplication.Business;
@@ -83,15 +85,22 @@ namespace SocialApplication.Controllers
         {
             var news = _newsRepository
                 .Query(new NewsSpecifications{NewsId = id})
-                .FirstOrDefault();
+                .SingleOrDefault();
 
             if (news == null)
             {
                 return NotFound();
             }
 
-            _newsRepository.Remove(news);
-
+            try
+            {
+                _newsRepository.Remove(news);
+            }
+            catch (Exception e)
+            {
+                return ResultBuilder.CreateErrorResult(HttpStatusCode.InternalServerError, e.Message);
+            }
+            
             return new NoContentResult();
         }
     }

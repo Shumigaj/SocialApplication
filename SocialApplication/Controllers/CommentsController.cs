@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SocialApplication.Business;
 using SocialApplication.Core.Models;
+using SocialApplication.Models;
 using SocialApplication.Requests;
 using SocialApplication.Variables;
 
@@ -51,7 +54,27 @@ namespace SocialApplication.Controllers
 
             comment = _commentsRepository.Add(newsId, comment);
 
-            return CreatedAtRoute(RouteName.GetComments, new { newsId, id = comment.Id }, comment);
+            if (comment.Id >= 0)
+            {
+                return CreatedAtRoute(RouteName.GetComments, new {newsId, id = comment.Id}, comment);
+            }
+
+            var errorDetails = new ErrorDetails("Comments can be disable for this news or news with provided Id doesn't exists");
+            return new BadRequestObjectResult(errorDetails);
+        }
+
+        [HttpPut]
+        public IActionResult Update(int newsId, int id, [FromBody] Comment comment)
+        {
+            return ResultBuilder.CreateErrorResult(HttpStatusCode.Forbidden, 
+                "Operation wasn't allowed because this can damage the integrity of user correspondence.");
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int newsId, int id)
+        {
+            return ResultBuilder.CreateErrorResult(HttpStatusCode.Forbidden,
+                "Operation wasn't allowed because this can damage the integrity of user correspondence.");
         }
     }
 }

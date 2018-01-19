@@ -32,7 +32,7 @@ namespace SocialApplication.Business
 
         public News Update(News news)
         {
-            var item = _newsProvider.GetAll().FirstOrDefault(w => w.Id == news.Id);
+            var item = _newsProvider.GetAll().SingleOrDefault(w => w.Id == news.Id);
             if (item == null)
             {
                 return null;

@@ -21,7 +21,7 @@
 		{
 			"name": "Get existing news",
 			"request": {
-				"url": "http://localhost:61206/api/v1/news/2",
+				"url": "http://localhost:61206/api/v1/news/1",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -72,10 +72,30 @@
 			"response": []
 		},
 		{
+			"name": "Create new invalid news",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Hiring in the UK was 10 percent lower in November 2017 than in October 2017, according to LinkedIn’s December UK Workforce Report. The...\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Update news",
 			"request": {
 				"url": {
-					"raw": "http://localhost:61206/api/v1/news?id=2",
+					"raw": "http://localhost:61206/api/v1/news?id=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -89,7 +109,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "2",
+							"value": "1",
 							"equals": true,
 							"description": ""
 						}
@@ -106,7 +126,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": 2,\n\t\"title\": \"Workforce location linked to increased productivity...\",\n\t\"text\": \"New research from a collaboration between LinkedIn and EY has found that companies can make major performance and productivity improvem...\"\n}"
+					"raw": "{\n\t\"id\": 1,\n\t\"title\": \"Workforce location linked to increased productivity...\",\n\t\"text\": \"New research from a collaboration between LinkedIn and EY has found that companies can make major performance and productivity improvem...\"\n}"
 				},
 				"description": ""
 			},
@@ -116,7 +136,7 @@
 			"name": "Delete news",
 			"request": {
 				"url": {
-					"raw": "http://localhost:61206/api/v1/news?id=-3",
+					"raw": "http://localhost:61206/api/v1/news?id=4",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -130,7 +150,132 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "-3",
+							"value": "4",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get comments for news",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/1/comments",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": null
+			},
+			"response": []
+		},
+		{
+			"name": "Get comment from news by Id",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/1/comments/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create new comment in the news",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/1/comments",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Thanks for article\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create new comment in the news by incorrect ID",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/10/comments",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Thanks for article\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update comment",
+			"request": {
+				"url": "http://localhost:61206/api/v1/news/2/comments",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 0,\n\t\"text\": \"Wait...\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment",
+			"request": {
+				"url": {
+					"raw": "http://localhost:61206/api/v1/news/2/comments?id=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "61206",
+					"path": [
+						"api",
+						"v1",
+						"news",
+						"2",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "0",
 							"equals": true,
 							"description": ""
 						}

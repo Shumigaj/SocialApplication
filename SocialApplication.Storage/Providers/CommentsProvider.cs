@@ -12,7 +12,7 @@ namespace SocialApplication.Storage.Providers
 
         public CommentsProvider()
         {
-            _newsCollection = NewsCollectionGenerator.Data;
+            _newsCollection = NewsCollectionStorage.Data;
         }
 
         public IEnumerable<Comment> GetAll(int newsId)
@@ -29,7 +29,9 @@ namespace SocialApplication.Storage.Providers
                 return -1;
             }
 
-            comment.Id = news.Comments.Max(s => s.Id) + 1;
+            comment.Id = news.Comments.Count > 0 
+                ? news.Comments.Max(s => s.Id) + 1
+                : 0;
             news.Comments.Add(comment);
             return comment.Id;
         }

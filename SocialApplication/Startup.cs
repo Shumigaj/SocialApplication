@@ -23,7 +23,7 @@ namespace SocialApplication
         {
             services.AddMvc(options =>
             {
-                options.Filters.Add(new ValidateModelFilterAttribute());
+                options.Filters.Add(new ValidateModelAttribute());
             });
 
             services.AddSingleton<INewsProvider, NewsProvider>();
