@@ -8,7 +8,7 @@ using SocialApplication.Requests;
 
 namespace SocialApplication.Business
 {
-    internal class NewsRepository : INewsRepository
+    public class NewsRepository : INewsRepository
     {
         private readonly INewsProvider _newsProvider;
 

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <AssemblyName>SocialApplication.UnitTests.Core</AssemblyName>
+
+    <RootNamespace>SocialApplication.UnitTests.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.8.1" />
+    <PackageReference Include="Moq.AutoMocker.NETStandard" Version="0.5.0.6" />
+    <PackageReference Include="NUnit" Version="3.9.0" />
+  </ItemGroup>
+
+</Project>

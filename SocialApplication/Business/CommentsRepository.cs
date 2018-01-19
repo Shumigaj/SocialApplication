@@ -8,7 +8,7 @@ using SocialApplication.Requests;
 
 namespace SocialApplication.Business
 {
-    internal class CommentsRepository : ICommentsRepository
+    public class CommentsRepository : ICommentsRepository
     {
         private readonly ICommentsProvider _commentsProvider;
 
@@ -17,12 +17,12 @@ namespace SocialApplication.Business
             _commentsProvider = commentsProvider;
         }
 
-        public async Task<IEnumerable<Comment>> QueryAsync(CommentSpecifications specifications = null)
+        public async Task<IEnumerable<Comment>> QueryAsync(CommentSpecifications specifications)
         {
             return await Task.Run(() => Query(specifications));
         }
 
-        public IEnumerable<Comment> Query(CommentSpecifications specifications = null)
+        public IEnumerable<Comment> Query(CommentSpecifications specifications)
         {
             if (specifications == null)
             {
