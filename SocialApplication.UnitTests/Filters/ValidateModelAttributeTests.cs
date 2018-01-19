@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using NUnit.Framework;
+using SocialApplication.Filters;
+using SocialApplication.UnitTests.Core.Extensions;
 
 namespace SocialApplication.UnitTests.Filters
 {
-    class ValidateModelAttributeTests
+    [TestFixture]
+    public class ValidateModelAttributeTests : AutoMockedSubject<ValidateModelAttribute>
     {
+        //[Test]
+        //public void  
     }
 }
