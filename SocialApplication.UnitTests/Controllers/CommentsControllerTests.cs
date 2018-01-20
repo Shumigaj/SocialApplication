@@ -20,9 +20,29 @@ namespace SocialApplication.UnitTests.Controllers
     [TestFixture(Category = CategoryName.Comments)]
     public class CommentsControllerTests : AutoMockedSubject<CommentsController>
     {
+        [TestCase(0)]
+        [TestCase(1)]
+        public async Task GetAsync_FindAllCommentsByNewsId_ReturnCommentsForNews(int newsId)
+        {
+            // Arrange
+            var expectedCommentsCollection = new NewsCollection().Data
+                .First(w => w.Id == newsId)
+                .Comments;
+            
+            Use<ICommentsRepository>()
+                .Setup(s => s.QueryAsync(It.IsAny<CommentSpecifications>()))
+                .ReturnsAsync(expectedCommentsCollection);
+
+            // Act
+            var actualResult = await Sub.GetAsync(newsId);
+
+            // Assert
+            CollectionAssert.AreEqual(expectedCommentsCollection, actualResult);
+        }
+
         [TestCase(0, 0)]
         [TestCase(1, 1)]
-        public async Task Get_FindCommentById_ReturnComment(int newsId, int commentId)
+        public async Task GetAsync_FindCommentById_ReturnComment(int newsId, int commentId)
         {
             // Arrange
             var expectedCommentQuery = new NewsCollection().Data
@@ -37,7 +57,7 @@ namespace SocialApplication.UnitTests.Controllers
                 .ReturnsAsync(expectedCommentQuery);
 
             // Act
-            var actualResult = await Sub.Get(newsId, commentId);
+            var actualResult = await Sub.GetAsync(newsId, commentId);
 
             // Assert
             Assert.IsInstanceOf<ObjectResult>(actualResult);
@@ -47,7 +67,7 @@ namespace SocialApplication.UnitTests.Controllers
 
         [TestCase(100, 0)]
         [TestCase(1, 100)]
-        public async Task Get_FindNonExistentComment_ReturnNotFound(int newsId, int commentId)
+        public async Task GetAsync_FindNonExistentComment_ReturnNotFound(int newsId, int commentId)
         {
             // Arrange
             var expectedCommentQuery = new NewsCollection().Data
@@ -61,7 +81,7 @@ namespace SocialApplication.UnitTests.Controllers
                 .ReturnsAsync(expectedCommentQuery);
             
             // Act
-            var actualResult = await Sub.Get(newsId, commentId);
+            var actualResult = await Sub.GetAsync(newsId, commentId);
 
             // Assert
             Assert.IsInstanceOf<NotFoundResult>(actualResult);

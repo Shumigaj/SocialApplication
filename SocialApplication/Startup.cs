@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SocialApplication.Business;
+using SocialApplication.Business.ExceptionHandling;
 using SocialApplication.Core.Contracts;
 using SocialApplication.Filters;
 using SocialApplication.Storage.Providers;
@@ -23,7 +24,8 @@ namespace SocialApplication
         {
             services.AddMvc(options =>
             {
-                options.Filters.Add(new ValidateModelAttribute());
+                options.Filters.Add(typeof(AppExceptionFilter));
+                options.Filters.Add(typeof(ValidateModelAttribute));
             });
 
             services.AddSingleton<INewsProvider, NewsProvider>();

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using SocialApplication.Models;
+using SocialApplication.Business.ExceptionHandling;
 
 namespace SocialApplication.Business
 {

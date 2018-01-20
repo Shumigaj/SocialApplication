@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SocialApplication.Business;
+using SocialApplication.Business.ExceptionHandling;
 using SocialApplication.Core.Models;
-using SocialApplication.Models;
 using SocialApplication.Requests;
 using SocialApplication.Variables;
 
@@ -23,13 +21,13 @@ namespace SocialApplication.Controllers
         }
         
         [HttpGet]
-        public async Task<IEnumerable<News>> Get()
+        public async Task<IEnumerable<News>> GetAsync()
         {
             return await _newsRepository.QueryAsync();
         }
         
         [HttpGet("{id:int:min(0)}", Name = RouteName.GetNews)]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
             var itemsFromStorage = await _newsRepository
                 .QueryAsync(new NewsSpecifications {NewsId = id});
@@ -92,14 +90,7 @@ namespace SocialApplication.Controllers
                 return NotFound();
             }
 
-            try
-            {
-                _newsRepository.Remove(news);
-            }
-            catch (Exception e)
-            {
-                return ResultBuilder.CreateErrorResult(HttpStatusCode.InternalServerError, e.Message);
-            }
+            _newsRepository.Remove(news);
             
             return new NoContentResult();
         }

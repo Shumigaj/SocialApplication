@@ -1,4 +1,4 @@
-﻿namespace SocialApplication.Models
+﻿namespace SocialApplication.Business.ExceptionHandling
 {
     public class ErrorDetails
     {

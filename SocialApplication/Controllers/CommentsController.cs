@@ -4,8 +4,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SocialApplication.Business;
+using SocialApplication.Business.ExceptionHandling;
 using SocialApplication.Core.Models;
-using SocialApplication.Models;
 using SocialApplication.Requests;
 using SocialApplication.Variables;
 
@@ -22,13 +22,13 @@ namespace SocialApplication.Controllers
         }
         
         [HttpGet]
-        public async Task<IEnumerable<Comment>> Get(int newsId)
+        public async Task<IEnumerable<Comment>> GetAsync(int newsId)
         {
             return await _commentsRepository.QueryAsync(new CommentSpecifications{NewsId = newsId });
         }
         
         [HttpGet("{id:int:min(0)}", Name = RouteName.GetComments)]
-        public async Task<IActionResult> Get(int newsId, int id)
+        public async Task<IActionResult> GetAsync(int newsId, int id)
         {
             var itemsFromStorage = await _commentsRepository
                 .QueryAsync(new CommentSpecifications { NewsId = newsId, CommentId = id});
