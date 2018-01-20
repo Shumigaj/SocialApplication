@@ -7,7 +7,6 @@ namespace SocialApplication.Business.ExceptionHandling
     {
         public void OnException(ExceptionContext context)
         {
-            //context.HttpContext.Response.ContentType = "application/json";
             context.Result = ResultBuilder
                 .CreateErrorResult(HttpStatusCode.InternalServerError,
                     context.Exception.Message);
