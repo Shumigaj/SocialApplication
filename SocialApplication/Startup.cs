@@ -7,6 +7,7 @@ using SocialApplication.Business.ExceptionHandling;
 using SocialApplication.Core.Contracts;
 using SocialApplication.Filters;
 using SocialApplication.Storage.Providers;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SocialApplication
 {
@@ -32,6 +33,18 @@ namespace SocialApplication
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<ICommentsProvider, CommentsProvider>();
             services.AddTransient<ICommentsRepository, CommentsRepository>();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllParametersInCamelCase();
+                options.DescribeStringEnumsInCamelCase();
+                options.SwaggerDoc("v1",
+                    new Info
+                    {
+                        Title = "Social application API",
+                        Version = "v1"
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +56,11 @@ namespace SocialApplication
             }
 
             app.UseMvc();
+            app.UseSwagger()
+                .UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Social application API (v1)");
+                });
         }
     }
 }
